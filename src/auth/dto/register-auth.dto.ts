@@ -1,6 +1,6 @@
 import { IsEmail, IsNotEmpty, IsString, MinLength } from "class-validator";
 
-export class RegisterUserDto {
+export class RegisterAuthDto {
 
     @IsNotEmpty()//Validamos que el nombre de usuario no sea vacio
     @IsString()//Validamos que el nombre de usuario sea un string

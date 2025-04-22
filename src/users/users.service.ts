@@ -13,4 +13,9 @@ export class UsersService {
         const newUser = this.usersRepository.create(user);
         return this.usersRepository.save(newUser);
     }
+
+    // Metodo para obtener todos los usuarios
+    findAll() {
+        return this.usersRepository.find();
+    }
 }
