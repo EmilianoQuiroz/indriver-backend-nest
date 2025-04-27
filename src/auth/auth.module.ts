@@ -12,7 +12,7 @@ import { JwtStrategy } from './jwt.strategy';
     TypeOrmModule.forFeature([User]),
     JwtModule.register({
       secret: jwtConstants.secret,
-      signOptions: { },
+      signOptions: { expiresIn: '12h' }, // Configuramos el tiempo de expiracion del token
     }),
   ], // Importamos el modulo de TypeOrm y le pasamos el User
   providers: [AuthService, JwtStrategy],

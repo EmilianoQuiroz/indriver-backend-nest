@@ -4,6 +4,7 @@ import { UsersController } from './users.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from './user.entity';
 import { JwtStrategy } from 'src/auth/jwt.strategy';
+import { MulterModule } from '@nestjs/platform-express';
 
 @Module({
   imports: [TypeOrmModule.forFeature([User])],
