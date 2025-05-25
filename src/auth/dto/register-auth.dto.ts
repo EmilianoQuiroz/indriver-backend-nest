@@ -19,4 +19,7 @@ export class RegisterAuthDto {
     @IsString()
     @MinLength(6, {message: 'La contraseña debe tener minimo 6 caracteres'})//Validamos que la contraseña tenga al menos 6 caracteres
     password: string;
+
+    // Recibimos los roles del usuario
+    rolesIds: string[];
 }

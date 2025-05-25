@@ -5,6 +5,7 @@ import { Repository } from 'typeorm';
 import { CreateUserDto } from './dto/create-user.dto';
 import { updateUserDto } from './dto/update-user.dto';
 import storage = require('../utils/cloud_storage');
+import { Rol } from 'src/roles/rol.entity';
 @Injectable()
 export class UsersService {
   constructor(
@@ -19,7 +20,7 @@ export class UsersService {
 
   // Metodo para obtener todos los usuarios
   findAll() {
-    return this.usersRepository.find();
+    return this.usersRepository.find({ relations: ['roles'] }); //Cargamos las relaciones de roles
   }
 
   //Metodo para modificar un usuario
@@ -27,7 +28,7 @@ export class UsersService {
     const userFound = await this.usersRepository.findOneBy({ id: id });
 
     if (!userFound) {
-      return new HttpException('El usuario no existe', HttpStatus.NOT_FOUND);
+      throw new HttpException('El usuario no existe', HttpStatus.NOT_FOUND);
     }
 
     const updatedUser = Object.assign(userFound, user); //Actualizamos el usuario
@@ -44,7 +45,7 @@ export class UsersService {
     console.log(url); //Mostramos la url de la imagen en consola
 
     if (url === undefined && url === null) {
-      return new HttpException(
+      throw new HttpException(
         'La imagen no se pudo guardar',
         HttpStatus.INTERNAL_SERVER_ERROR,
       );
@@ -52,7 +53,7 @@ export class UsersService {
     const userFound = await this.usersRepository.findOneBy({ id: id });
 
     if (!userFound) {
-      return new HttpException('El usuario no existe', HttpStatus.NOT_FOUND);
+      throw new HttpException('El usuario no existe', HttpStatus.NOT_FOUND);
     }
     user.image = url; //Asignamos la url de la imagen al usuario
     const updatedUser = Object.assign(userFound, user); //Actualizamos el usuario
